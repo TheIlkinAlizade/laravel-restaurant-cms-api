@@ -15,7 +15,8 @@ class GalleryImagesTable
     {
         return $table
             ->columns([
-                ImageColumn::make('image_path'),
+                ImageColumn::make('image_path')
+                    ->disk('public'),
                 TextColumn::make('caption')
                     ->label('Caption')
                     ->getStateUsing(fn ($record) => $record->getTranslation('caption', 'az'))

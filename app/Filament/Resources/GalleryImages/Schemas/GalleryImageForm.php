@@ -18,6 +18,7 @@ class GalleryImageForm
                 FileUpload::make('image_path')
                     ->image()
                     ->required()
+                    ->disk('public')
                     ->directory('gallery')
                     ->visibility('public'),
 

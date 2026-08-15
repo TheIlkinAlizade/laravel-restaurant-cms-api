@@ -16,7 +16,8 @@ class MenuItemsTable
     {
         return $table
             ->columns([
-                ImageColumn::make('image_path'),
+                ImageColumn::make('image_path')
+                    ->disk('public'),
                 TextColumn::make('name')
                     ->label('Name')
                     ->getStateUsing(fn ($record) => $record->getTranslation('name', 'az'))

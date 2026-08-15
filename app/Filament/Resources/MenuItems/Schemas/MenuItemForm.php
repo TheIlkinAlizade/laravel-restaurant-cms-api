@@ -53,6 +53,7 @@ class MenuItemForm
 
                 FileUpload::make('image_path')
                     ->image()
+                    ->disk('public')
                     ->directory('menu-items')
                     ->visibility('public'),
 
