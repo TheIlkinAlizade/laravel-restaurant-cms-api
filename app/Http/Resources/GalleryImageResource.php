@@ -13,7 +13,9 @@ class GalleryImageResource extends JsonResource
 
         return [
             'id' => $this->id,
-            'image_url' => $this->image_path,
+            'image_url' => $this->image_path
+                ? (str_starts_with($this->image_path, 'http') ? $this->image_path : url('/storage/' . $this->image_path))
+                : null,
             'caption' => $this->getTranslation('caption', $locale, false),
             'category' => $this->category,
             'sort_order' => $this->sort_order,

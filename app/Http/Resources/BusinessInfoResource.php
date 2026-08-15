@@ -23,7 +23,9 @@ class BusinessInfoResource extends JsonResource
             'map_lat' => $this->map_lat,
             'map_lng' => $this->map_lng,
             'hours' => $this->hours,
-            'hero_image_url' => $this->hero_image_path,
+            'hero_image_url' => $this->hero_image_path
+                ? (str_starts_with($this->hero_image_path, 'http') ? $this->hero_image_path : url('/storage/' . $this->hero_image_path))
+                : null,
         ];
     }
 }
