@@ -9,6 +9,8 @@ class BusinessInfo extends Model
 {
     use HasTranslations;
 
+    protected $table = 'business_info';
+
     public array $translatable = ['name', 'tagline', 'about_text'];
     protected $fillable = [
         'name','tagline','about_text','phone','whatsapp','instagram_url',
@@ -22,6 +24,13 @@ class BusinessInfo extends Model
 
     public static function current(): self
     {
-        return static::firstOrCreate(['id' => 1]);
+        return static::firstOrCreate(
+            ['id' => 1],
+            [
+                'name' => ['az' => 'Kafe Aurora', 'en' => 'Café Aurora', 'ru' => 'Кафе Аврора'],
+                'tagline' => ['az' => '', 'en' => '', 'ru' => ''],
+                'about_text' => ['az' => '', 'en' => '', 'ru' => ''],
+            ]
+        );
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\MenuItems\Schemas;
 
+use App\Models\MenuCategory;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -18,7 +19,10 @@ class MenuItemForm
         return $schema
             ->components([
                 Select::make('menu_category_id')
-                    ->relationship('category', 'name') // shows raw JSON for now, fine until MenuCategoryResource is also tabbed
+                    ->label('Category')
+                    ->options(fn () => MenuCategory::all()->mapWithKeys(
+                        fn ($category) => [$category->id => $category->getTranslation('name', 'az')]
+                    ))
                     ->required()
                     ->searchable(),
 
@@ -26,27 +30,18 @@ class MenuItemForm
                     ->tabs([
                         Tab::make('AZ')
                             ->schema([
-                                TextInput::make('name.az')
-                                    ->label('Name (AZ)')
-                                    ->required(),
-                                Textarea::make('description.az')
-                                    ->label('Description (AZ)'),
+                                TextInput::make('name.az')->label('Name (AZ)')->required(),
+                                Textarea::make('description.az')->label('Description (AZ)'),
                             ]),
                         Tab::make('EN')
                             ->schema([
-                                TextInput::make('name.en')
-                                    ->label('Name (EN)')
-                                    ->required(),
-                                Textarea::make('description.en')
-                                    ->label('Description (EN)'),
+                                TextInput::make('name.en')->label('Name (EN)')->required(),
+                                Textarea::make('description.en')->label('Description (EN)'),
                             ]),
                         Tab::make('RU')
                             ->schema([
-                                TextInput::make('name.ru')
-                                    ->label('Name (RU)')
-                                    ->required(),
-                                Textarea::make('description.ru')
-                                    ->label('Description (RU)'),
+                                TextInput::make('name.ru')->label('Name (RU)')->required(),
+                                Textarea::make('description.ru')->label('Description (RU)'),
                             ]),
                     ])
                     ->columnSpanFull(),
